@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gestion_gastos/core/utils/validators.dart';
-import 'package:go_router/go_router.dart';
 
+// Utils
+import 'package:gestion_gastos/core/utils/validators.dart';
+
+// Widgets globales
 import 'package:gestion_gastos/shared/widgets/widgets.dart';
+
+// Widgets de auth
+import 'package:gestion_gastos/features/auth/presentation/widgets/widgets.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -14,11 +19,11 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // 1. Creamos los controladores
+  // Controladores de los campos de texto
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // 2. Es buena práctica liberar la memoria al cerrar la pantalla
+  // Liberar la memoria al cerrar la pantalla
   @override
   void dispose() {
     _emailController.dispose();
@@ -59,91 +64,15 @@ class _LoginFormState extends State<LoginForm> {
 
             const SizedBox(height: 20),
 
-            // Boton de iniciar sesion
-            _buildActionButtons(context),
+            // Botones para iniciar sesión y registrarse
+            LoginActions(
+              emailController: _emailController,
+              passwordController: _passwordController,
+              formKey: _formKey,
+            ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildActionButtons(BuildContext context) {
-    const colorBlue = Colors.blue;
-    const colorGrey = Colors.grey;
-
-    return ListenableBuilder(
-      listenable: Listenable.merge([_emailController, _passwordController]),
-      builder: (context, child) {
-        // Lógica para saber si el botón debe estar habilitado
-        // 1. Que los campos no estén vacíos
-        // 2. Opcional: Podrías validar el formato aquí también
-        final isFormNotEmpty =
-            _emailController.text.trim().isNotEmpty &&
-            _passwordController.text.trim().isNotEmpty;
-
-        return Column(
-          spacing: 10,
-          children: [
-            FilledButton(
-              onPressed: isFormNotEmpty
-                  ? () {
-                      // Disparamos la validación
-                      if (_formKey.currentState!.validate()) {
-                        // Si todo está bien se procede
-                        final email = _emailController.text;
-                        final password = _passwordController.text;
-
-                        print("Intentando login con: $email y $password");
-                      }
-                    }
-                  : null,
-              style: FilledButton.styleFrom(
-                elevation: 2, // Añade una pequeña sombra
-                shadowColor: Colors.blue.withValues(alpha: 0.3),
-
-                // Color cuando está habilitado
-                backgroundColor: colorBlue,
-                foregroundColor: Colors.white,
-
-                // Color cuando está deshabilitado (onPressed: null)
-                disabledBackgroundColor: colorGrey,
-                disabledForegroundColor: Colors.white,
-
-                minimumSize: const Size.fromHeight(50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(13),
-                ),
-              ),
-              child: const Text(
-                'Iniciar sesión',
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
-
-            // Botón de registro
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  '¿No tienes cuenta?',
-                  style: TextStyle(fontSize: 16),
-                ),
-                TextButton(
-                  onPressed: () => context.go('/signup'),
-                  child: const Text(
-                    'Regístrate',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: colorBlue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        );
-      },
     );
   }
 }
