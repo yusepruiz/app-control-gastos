@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// Constantes
+import 'package:gestion_gastos/core/constants/app_colors.dart';
+
+// Widgets
 import 'package:gestion_gastos/features/auth/presentation/widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -12,12 +16,11 @@ class LoginScreen extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFFEFF6FF), Color(0xFFF5F3FF)],
+          colors: [AppColors.gradientStart, AppColors.gradientEnd],
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
-        // appBar: AppBar(title: const Text('Registro')),
+        backgroundColor: AppColors.transparent,
         body: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
