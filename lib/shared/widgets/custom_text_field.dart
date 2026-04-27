@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// Constantes
+import 'package:gestion_gastos/core/constants/app_colors.dart';
+
 class CustomTextField extends StatefulWidget {
   final String label;
   final String hintText;
@@ -31,9 +34,6 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   // Variable interna para controlar la visibilidad
   late bool _obscureText;
-  final colorGrey400 = Colors.grey[400];
-  final colorGrey500 = Colors.grey[500];
-  final colorRed = Colors.redAccent;
 
   @override
   void initState() {
@@ -50,6 +50,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
     );
   }
 
+  // Boton para mostrar/ocultar contraseña
+  IconButton _buildEyeButton() {
+    return IconButton(
+      icon: Icon(
+        _obscureText
+            ? Icons.visibility_off_outlined
+            : Icons.visibility_outlined,
+        color: AppColors.grey400,
+      ),
+      onPressed: () => setState(() => _obscureText = !_obscureText),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -59,7 +72,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         Text(
           widget.label,
           style: const TextStyle(
-            color: Colors.black,
+            color: AppColors.black,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -73,32 +86,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
           decoration: InputDecoration(
             counterText: "",
-            prefixIcon: Icon(widget.icon, color: colorGrey400),
-            suffixIcon: widget.isPassword
-                ? IconButton(
-                    icon: Icon(
-                      _obscureText
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                      color: colorGrey400,
-                    ),
-                    onPressed: () =>
-                        setState(() => _obscureText = !_obscureText),
-                  )
-                : null,
+            prefixIcon: Icon(widget.icon, color: AppColors.grey400),
+            suffixIcon: widget.isPassword ? _buildEyeButton() : null,
             hintText: widget.hintText,
-            hintStyle: TextStyle(color: colorGrey500),
+            hintStyle: const TextStyle(color: AppColors.grey500),
 
             // Error
-            errorBorder: _buildBorder(colorRed),
-            focusedErrorBorder: _buildBorder(colorRed, width: 2),
+            errorBorder: _buildBorder(AppColors.errorRed),
+            focusedErrorBorder: _buildBorder(AppColors.errorRed, width: 2),
 
             // Normal
-            enabledBorder: _buildBorder(colorGrey400!),
-            focusedBorder: _buildBorder(colorGrey500!, width: 2),
+            enabledBorder: _buildBorder(AppColors.grey400),
+            focusedBorder: _buildBorder(AppColors.grey500, width: 2),
 
             filled: true,
-            fillColor: Colors.white.withValues(alpha: 0.5),
+            fillColor: AppColors.white.withValues(alpha: 0.5),
           ),
         ),
       ],
