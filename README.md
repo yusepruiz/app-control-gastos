@@ -1,17 +1,57 @@
-# gestion_gastos
+# Gestión de Gastos
 
-A new Flutter project.
+Una aplicación de Flutter moderna y eficiente para la gestión de gastos personales. Este proyecto permite a los usuarios llevar un control detallado de sus finanzas con una interfaz intuitiva y atractiva.
 
-## Getting Started
+## 🚀 Características Principales
 
-This project is a starting point for a Flutter application.
+*   **Autenticación de Usuarios:** Sistema de inicio de sesión y registro seguro.
+*   **Diseño Moderno:** Interfaz limpia siguiendo las mejores prácticas de diseño en Flutter.
+*   **Navegación Fluida:** Implementación robusta con `go_router`.
+*   **Personalización:** Incluye una pantalla de inicio splash personalizada.
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Stack Tecnológico
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+*   **Framework:** [Flutter](https://flutter.dev/)
+*   **Lenguaje:** [Dart](https://dart.dev/)
+*   **Navegación:** [Go Router](https://pub.dev/packages/go_router)
+*   **Assets:** [Flutter Native Splash](https://pub.dev/packages/flutter_native_splash)
+*   **Iconos:** [Cupertino Icons](https://pub.dev/packages/cupertino_icons)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📋 Requisitos Previos
+
+Asegúrate de tener instalado Flutter en tu sistema. Puedes verificarlo ejecutando:
+
+```bash
+flutter doctor
+```
+
+## ⚙️ Configuración e Instalación
+
+Sigue estos pasos para ejecutar el proyecto localmente:
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone <URL_DEL_REPOSITORIO>
+   cd gestion_gastos
+   ```
+
+2. **Instalar dependencias:**
+   ```bash
+   flutter pub get
+   ```
+
+3. **Ejecutar la aplicación:**
+   ```bash
+   flutter run
+   ```
+
+## 📂 Estructura del Proyecto
+
+El proyecto sigue una arquitectura modular y limpia:
+*   `lib/core`: Configuración global, constantes y router.
+*   `lib/features`: Funcionalidades específicas (ej. auth).
+*   `lib/shared`: Widgets y componentes reutilizables.
+*   `assets`: Imágenes y recursos visuales.
+
+---
+Desarrollado con ❤️ usando Flutter.
