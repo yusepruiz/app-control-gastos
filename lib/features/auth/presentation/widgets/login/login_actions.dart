@@ -23,12 +23,7 @@ class LoginActions extends StatelessWidget {
     return ListenableBuilder(
       listenable: Listenable.merge([emailController, passwordController]),
       builder: (context, child) {
-        // Lógica para saber si el botón debe estar habilitado
-        // 1. Que los campos no estén vacíos
-        // 2. Opcional: Podrías validar el formato aquí también
-        final isFormNotEmpty =
-            emailController.text.trim().isNotEmpty &&
-            passwordController.text.trim().isNotEmpty;
+        final isFormValid = _isFormValid();
 
         return Column(
           spacing: 10,
@@ -36,8 +31,8 @@ class LoginActions extends StatelessWidget {
             // Boton de iniciar sesión
             CustomFilledButton(
               text: 'Iniciar sesión',
-              isEnabled: isFormNotEmpty,
-              onPressed: isFormNotEmpty ? _handleLogin : null,
+              isEnabled: isFormValid,
+              onPressed: isFormValid ? _handleLogin : null,
             ),
 
             // Botón de registro
@@ -48,10 +43,15 @@ class LoginActions extends StatelessWidget {
     );
   }
 
+  bool _isFormValid() {
+    final emailRegExp = RegExp(r'^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$');
+
+    return emailRegExp.hasMatch(emailController.text.trim()) &&
+        passwordController.text.length >= 3;
+  }
+
   void _handleLogin() {
-    // Disparamos la validación
     if (formKey.currentState!.validate()) {
-      // Si todo está bien se procede
       final email = emailController.text;
       final password = passwordController.text;
 
