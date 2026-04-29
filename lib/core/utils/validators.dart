@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class AppValidators {
   // Validador de Email (Se usa en Login y Signup)
   static String? validateEmail(String? value) {
@@ -18,5 +20,17 @@ class AppValidators {
   static String? validateName(String? value) {
     if (value == null || value.isEmpty) return 'El nombre es obligatorio';
     return null;
+  }
+
+  // Validador de Confirmar Contraseña
+  // Recibe el controlador para leer el valor actual en el momento de validar
+  static String? Function(String?) validateConfirmPassword(
+    TextEditingController passwordController,
+  ) {
+    return (String? value) {
+      if (value == null || value.isEmpty) return 'Confirma tu contraseña';
+      if (value != passwordController.text) return 'Las contraseñas no coinciden';
+      return null;
+    };
   }
 }
