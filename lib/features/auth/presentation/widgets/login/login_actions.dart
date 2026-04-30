@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestion_gastos/core/utils/validators.dart';
 
 // Widgets globales
 import 'package:gestion_gastos/shared/widgets/widgets.dart';
@@ -23,7 +24,7 @@ class LoginActions extends StatelessWidget {
     return ListenableBuilder(
       listenable: Listenable.merge([emailController, passwordController]),
       builder: (context, child) {
-        final isFormValid = _isFormValid();
+        final isFormValid = _isFormValid;
 
         return Column(
           spacing: 10,
@@ -43,15 +44,17 @@ class LoginActions extends StatelessWidget {
     );
   }
 
-  bool _isFormValid() {
-    final emailRegExp = RegExp(r'^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$');
+  bool get _isFormValid {
+    final emailError = AppValidators.validateEmail(emailController.text);
+    final passwordError = AppValidators.validatePassword(
+      passwordController.text,
+    );
 
-    return emailRegExp.hasMatch(emailController.text.trim()) &&
-        passwordController.text.length >= 3;
+    return emailError == null && passwordError == null;
   }
 
   void _handleLogin() {
-    if (formKey.currentState!.validate()) {
+    if (formKey.currentState?.validate() ?? false) {
       final email = emailController.text;
       final password = passwordController.text;
 
