@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+
+import 'package:go_router/go_router.dart';
+
+// Utils
 import 'package:gestion_gastos/core/utils/validators.dart';
 
 // Widgets globales
@@ -33,7 +37,7 @@ class LoginActions extends StatelessWidget {
             CustomFilledButton(
               text: 'Iniciar sesión',
               isEnabled: isFormValid,
-              onPressed: isFormValid ? _handleLogin : null,
+              onPressed: isFormValid ? () => _handleLogin(context) : null,
             ),
 
             // Botón de registro
@@ -53,12 +57,13 @@ class LoginActions extends StatelessWidget {
     return emailError == null && passwordError == null;
   }
 
-  void _handleLogin() {
+  void _handleLogin(BuildContext context) {
     if (formKey.currentState?.validate() ?? false) {
       final email = emailController.text;
       final password = passwordController.text;
 
       debugPrint("Intentando login con: $email y $password");
+      context.go('/dashboard');
     }
   }
 }
