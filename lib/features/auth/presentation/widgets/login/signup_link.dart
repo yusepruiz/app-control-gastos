@@ -20,7 +20,7 @@ class SignupLink extends StatelessWidget {
             'Regístrate',
             style: TextStyle(
               fontSize: 16,
-              color: AppColors.blue,
+              color: AppColors.gradientButtonStart,
               fontWeight: FontWeight.bold,
             ),
           ),
